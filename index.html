@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tearable Cloth</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+
+    <canvas id="c"></canvas>
+
+    <a target="_blank" href="http://codepen.io/suffick/pen/fhjvk" id="p">Like playing with physics? Click here!</a>
+
+    <div id="info">
+        <div id="top">
+            <a target="_blank" id="site" href="javascript:alert('Currently down, sorry!');">my website</a>
+            <a id="close" href="">close</a>
+        </div>
+        <p>
+            <br>- Tear the cloth with your mouse.
+            <br>
+            <br>- Right click and drag to cut the cloth
+            <br>
+            <br>- Reduce physics_accuracy if it's laggy.
+            <br>
+            <br>
+        </p>
+    </div>
+
+
+
+    <script type="text/javascript">
+        document.getElementById('close').onmousedown = function(e) {
+            e.preventDefault();
+            document.getElementById('info').style.display = 'none';
+            return false;
+        };
+    </script>
+    
+    <script type="text/javascript" src="Cloth.js"></script>
+</body>
+
+</html>
