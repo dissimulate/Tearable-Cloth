@@ -1,45 +1,14 @@
-<!DOCTYPE html>
-<html>
+<!--
 
-<head>
-    <title>Tearable Cloth</title>
+It's been a couple of years since I made the original tearable cloth, and since then both me and Javscript have improved. I thought it deserved an update.
 
-    <link rel="stylesheet" type="text/css" href="style.css" />
-</head>
+It should be more efficient, wall collisions are greatly improved, and it has a slightly more stretchy, cloth-like texture. The code is better, a bit smaller and now in ES2015.
 
-<body>
+-->
 
-    <canvas id="c"></canvas>
-
-    <a target="_blank" href="http://codepen.io/suffick/pen/fhjvk" id="p">Like playing with physics? Click here!</a>
-
-    <div id="info">
-        <div id="top">
-            <a target="_blank" id="site" href="javascript:alert('Currently down, sorry!');">my website</a>
-            <a id="close" href="">close</a>
-        </div>
-        <p>
-            <br>- Tear the cloth with your mouse.
-            <br>
-            <br>- Right click and drag to cut the cloth
-            <br>
-            <br>- Reduce physics_accuracy if it's laggy.
-            <br>
-            <br>
-        </p>
-    </div>
-
-
-
-    <script type="text/javascript">
-        document.getElementById('close').onmousedown = function(e) {
-            e.preventDefault();
-            document.getElementById('info').style.display = 'none';
-            return false;
-        };
-    </script>
-    
-    <script type="text/javascript" src="Cloth.js"></script>
-</body>
-
-</html>
+<canvas id="canvas"></canvas>
+<span>Drag with your mouse, right-click to slice.</span>
+<div>
+  <a href="https://github.com/Dissimulate/Tearable-Cloth">Github</a>
+  <a href="https://twitter.com/abro_oks">@abro_oks</a>
+</div>
