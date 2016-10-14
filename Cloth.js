@@ -8,8 +8,9 @@ window.requestAnimFrame =
     window.setTimeout(callback, 1e3 / 60)
   }
 
+const defaultGravity = 400
 let accuracy = 5
-let gravity = 400
+let gravity = defaultGravity
 let clothY = 28
 let clothX = 54
 let spacing = 8
@@ -20,8 +21,8 @@ let bounce = 0.5
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = Math.min(700, window.innerWidth)
+canvas.height = 400
 
 ctx.strokeStyle = '#555'
 
@@ -170,7 +171,7 @@ class Constraint {
 }
 
 class Cloth {
-  constructor () {
+  constructor (free) {
     this.points = []
 
     let startX = canvas.width / 2 - clothX * spacing / 2
@@ -178,7 +179,7 @@ class Cloth {
     for (let y = 0; y <= clothY; y++) {
       for (let x = 0; x <= clothX; x++) {
         let point = new Point(startX + x * spacing, 20 + y * spacing)
-        y === 0 && point.pin(point.x, point.y)
+        !free && y === 0 && point.pin(point.x, point.y)
         x !== 0 && point.attach(this.points[this.points.length - 1])
         y !== 0 && point.attach(this.points[x + (y - 1) * (clothX + 1)])
 
@@ -220,13 +221,31 @@ canvas.onmousedown = (e) => {
 
 canvas.onmousemove = setMouse
 
-canvas.onmouseup = () => (mouse.down = false)
+window.onmouseup = () => (mouse.down = false)
 
 canvas.oncontextmenu = (e) => e.preventDefault()
 
 let cloth = new Cloth()
 
-;(function update (time) {
+function zeroG() {
+  if(gravity === 0){
+    gravity = defaultGravity
+    cloth = new Cloth(false)
+  } else {
+    gravity = 0
+    cloth = new Cloth(true)
+  }
+}
+
+function reset(){
+  if(gravity === 0){
+    cloth = new Cloth(true)
+  } else {
+    cloth = new Cloth(false)
+  }
+}
+
+(function update (time) {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   cloth.update(0.016)
