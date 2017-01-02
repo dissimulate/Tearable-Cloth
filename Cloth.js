@@ -220,7 +220,7 @@ canvas.onmousedown = (e) => {
 
 canvas.onmousemove = setMouse
 
-canvas.onmouseup = () => (mouse.down = false)
+window.onmouseup = () => (mouse.down = false)
 
 canvas.oncontextmenu = (e) => e.preventDefault()
 
@@ -273,7 +273,7 @@ document.body.addEventListener('touchmove', function (e) {
 
 let cloth = new Cloth()
 
-;(function update (time) {
+(function update (time) {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   cloth.update(0.016)
