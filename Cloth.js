@@ -220,13 +220,60 @@ canvas.onmousedown = (e) => {
 
 canvas.onmousemove = setMouse
 
-canvas.onmouseup = () => (mouse.down = false)
+window.onmouseup = () => (mouse.down = false)
 
 canvas.oncontextmenu = (e) => e.preventDefault()
 
+// Add touch events
+
+function setTouch (e) {
+  let rect = canvas.getBoundingClientRect()
+  mouse.px = mouse.x
+  mouse.py = mouse.y
+  mouse.x = e.touches[0].clientX - rect.left
+  mouse.y = e.touches[0].clientY - rect.top
+}
+
+canvas.addEventListener('touchstart', function (e) {
+  mouse.down = true
+  let rect = canvas.getBoundingClientRect()
+  mouse.x = e.touches[0].clientX - rect.left
+  mouse.y = e.touches[0].clientY - rect.top
+  setTouch(e)
+}, false);
+
+canvas.addEventListener('touchmove', function (e) {
+  setTouch(e)
+}, false);
+
+window.addEventListener('touchend', function (e) {
+  mouse.down = false
+}, false);
+
+// Prevent scrolling when touching the canvas
+
+document.body.addEventListener('touchstart', function (e) {
+  if (e.target === canvas) {
+    e.preventDefault();
+  }
+}, false);
+
+document.body.addEventListener('touchend', function (e) {
+  if (e.target === canvas) {
+    e.preventDefault();
+  }
+}, false);
+
+document.body.addEventListener('touchmove', function (e) {
+  if (e.target === canvas) {
+    e.preventDefault();
+  }
+}, false);
+
+
 let cloth = new Cloth()
 
-;(function update (time) {
+(function update (time) {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   cloth.update(0.016)
